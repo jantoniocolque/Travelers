@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Travelers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="shortcut icon" href="~/img/logo.png">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.png" class="rounded" alt="logo" width="100" style="background-color: #008f39;">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reserva" asp-action="Index">Reservas</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link text-dark" href="#">Destino sorpresa</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Destino" asp-action="Index">Destinos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Viaje" asp-action="Index">Viajes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
+                        </li>
+                        <li>
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="Buscar destino" aria-label="Buscar destino">
+                                <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container" id="footer">
+            <div class="row text-center justify-content-center">
+                <div id="redes" class="col-4">
+                    <h3>Nuestras redes sociales</h3>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-youtube"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Suscribirse (despegar.com) -->
+            <!-- Certificados de legalidad -->
+            <div class="row text-center justify-content-center">
+                <div class="col-4">
+                    <h4>Certificados y condecoraciones</h4>
+                </div>
+                <div class="col-4">
+                    <h4>Recibi ofertas exclusivas a tu email</h4>
+                </div>
+            </div>
+            <form class="row g-2 text-center justify-content-center">
+                <div class="col-4">
+                    <ul class="list-inline">
+                        <li class="list-inline-item redes"><a href="#"><img src="~/img/certificados/datafiscal.png" alt="data fiscal"></a></li>
+                        <li class="list-inline-item redes"><a href="#"><img src="~/img/certificados/constancia.png" alt=""></a></li>
+                        <li class="list-inline-item redes"><a href="#"><img src="~/img/certificados/certificadodexd.png" alt=""></a></li>
+                        <li class="list-inline-item redes"><a href="#"><img src="~/img/certificados/iata.png" alt=""></a></li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <input type="text" class="form-control -3" id="email" placeholder="Correo Electronico">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-primary">Quiero inscribirme</button>
+                </div>
+            </form>
+            <!-- Links de texto para llenar -->
+            <!-- Datos de contacto y terminos y condiciones -->
+            <div class="row">
+                <p style="color: #CCCCCC;">
+                    El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley Nº 25.326". "La AGENCIA DE ACCESO A LA INFORMACIÓN PÚBLICA, Organo de Control de la Ley Nº 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales.
+                    De acuerdo a la ley 24.240, se encuentra a su disposición un ejemplar del modelo de contrato que propone la empresa a suscribir al momento de la contratación.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

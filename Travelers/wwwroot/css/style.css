@@ -1,0 +1,299 @@
+﻿.height-carousel img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.info-text {
+    background-color: rgba(255,255,253,.7);
+    width: 40%;
+    position: absolute;
+    top: 330px;
+    height: 30%;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap; /*test*/
+    color: #333;
+    transform: translate(0px,300px);
+    opacity: 0;
+    padding: 50px;
+    border-radius: 8px;
+    font-size: .8rem;
+}
+
+.active .animate {
+    opacity: 1;
+    transform: translate(0px,0px);
+    transition: all 0.7s ease-in-out;
+}
+
+.card-info-travel {
+    background-color: rgba(0,143,57,.2);
+    border: solid 1px rgba(0,0,0,.1);
+    width: 95%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 2px #333;
+}
+
+.cards-info-travel {
+    width: 86%;
+    margin: auto;
+}
+
+    .cards-info-travel p {
+        font-size: 13px;
+    }
+
+.cards-carousel {
+    width: 85%;
+    margin: auto;
+}
+
+#carouselBasicExample .carousel-control-prev {
+    left: -8% !important;
+}
+
+#carouselBasicExample .carousel-control-next {
+    right: -8% !important;
+}
+
+.card-img-top {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+}
+
+.card {
+    border-radius: 12px !important;
+    text-align: left !important;
+    height: 100%;
+}
+
+    .card:hover {
+        cursor: pointer;
+        box-shadow: 2px 2px 1px #333;
+    }
+
+.travel-destinos {
+    position: relative;
+}
+
+    .travel-destinos .banner {
+        background-image: url('https://th.bing.com/th/id/Re8dc0e60b923d14a058245f99b46e4cd?rik=04raBn0EEhHjXA&pid=ImgRaw');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(.1px);
+        filter: drop-shadow(black);
+        height: 280px;
+    }
+
+    .travel-destinos h2 {
+        font-size: 4.3rem;
+        font-weight: bold;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        right: 27%;
+        line-height: 4;
+        position: absolute;
+        z-index: 1000;
+        -webkit-text-stroke: 2px #008f39;
+    }
+
+    .travel-destinos .section-banner {
+        position: relative;
+    }
+
+    .travel-destinos .bg-float {
+        position: absolute;
+        background-color: #008f39;
+        right: 15%;
+        width: 70%;
+        height: 15vh;
+        bottom: -17%;
+        border-radius: 10px;
+        flex-wrap: wrap;
+        color: white;
+    }
+
+div.cards {
+    margin-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    div.cards section.fila-cards {
+        width: 80%;
+        display: flex;
+        align-self: center;
+        gap: 15px;
+    }
+
+    div.cards h3 {
+        margin-left: 10%;
+    }
+
+    div.cards .card {
+        padding: 0;
+        width: 30%;
+        height: 70vh;
+    }
+
+        div.cards .card .card-header {
+            height: 200px;
+            padding: 0;
+        }
+
+        div.cards .card .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            div.cards .card .card-body p:nth-child(odd) {
+                border: 1px solid #008f39;
+                border-radius: 5px;
+                width: 33%;
+                padding: 3px;
+                font-size: .5rem;
+                text-align: center;
+                align-self: flex-end;
+            }
+
+                div.cards .card .card-body p:nth-child(odd)::before {
+                    content: '\f0a1';
+                    font-family: "Font Awesome 5 Free";
+                    color: #333;
+                    font-weight: 800;
+                    margin-right: 2px;
+                }
+
+            div.cards .card .card-body p:nth-child(even)::before {
+                content: '\f5b0';
+                font-family: "Font Awesome 5 Free";
+                color: #333;
+                font-weight: 800;
+                margin-right: 2px;
+            }
+
+            div.cards .card .card-body p:nth-child(even) {
+                border: 1px solid lightcoral;
+                border-radius: 5px;
+                width: 30%;
+                padding: 1px;
+                font-size: .6rem;
+                text-align: center;
+                align-self: flex-end;
+            }
+
+        div.cards .card .card-header-img-1 {
+            background-image: url("https://th.bing.com/th/id/R55d7aafbe856d5b3f2627e24bbed5e11?rik=fDG0HtmbwMPJpQ&pid=ImgRaw");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-2 {
+            background-image: url("https://th.bing.com/th/id/Rc0d5bb99f2ed99ceb387148ce7f9cd80?rik=uGIs49IVVz3G0g&pid=ImgRaw");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-3 {
+            background-image: url("https://th.bing.com/th/id/R52546909dce390e24d5753fc3e1b9051?rik=fRO2e3jiqIUP2g&riu=http%3a%2f%2fwww.destination360.com%2fsouth-america%2fargentina%2fimages%2fs%2fargentina-mendoza.jpg&ehk=1LMIk%2fpCYfzqw8plAUtqoSAQU%2bxdfiJolq5K8EJrCrY%3d&risl=&pid=ImgRaw");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-4 {
+            background-image: url("https://th.bing.com/th/id/R9fc5cdb78bfd192f7d6606744bf04636?rik=DTNzA6lgVaS1xg&pid=ImgRaw");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-5 {
+            background-image: url("https://elsol-compress.s3-accelerate.amazonaws.com/imagenes/000/638/606/000638606-ioauniversalorlando.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-6 {
+            background-image: url("https://th.bing.com/th/id/OIP.NsNBz56dUtdEM9cZR8dSYAHaFj?pid=ImgDet&rs=1");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-7 {
+            background-image: url("https://th.bing.com/th/id/Ra656cddeb2c44449eee22118e76e226b?rik=j9nVed8ma3ohEg&riu=http%3a%2f%2fargentinamunicipal.com.ar%2fargentina%2fwp-content%2fuploads%2f2016%2f09%2fUshuaia-2-1200x762_c.jpg&ehk=ei6ZFKF9AIUSEqGKN1huJwLcGILrg%2bekWkl1hYCx9VY%3d&risl=&pid=ImgRaw");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+        div.cards .card .card-header-img-8 {
+            background-image: url("https://th.bing.com/th/id/OIP.GNgHug5IB1RAGCwtxu5b4QHaE8?pid=ImgDet&rs=1");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: inherit;
+            border-top-right-radius: .65rem;
+            border-top-left-radius: .65rem;
+        }
+
+#footer button {
+    background-color: #008f39;
+    border-color: #008f39;
+}
+
+#footer input {
+    border-color: #008f39;
+}
+
+#footer a {
+    color: #008f39;
+    font-size: 25px;
+}
+
+#destinoRandom .image-content img {
+    width: 100%;
+    height: 100%;
+}
+
+#destinoRandom .image-content {
+    text-align: center;
+}
