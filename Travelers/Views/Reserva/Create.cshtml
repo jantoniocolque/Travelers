@@ -4,45 +4,43 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Reserva</h4>
+<h1 class="d-flex align-items-center justify-content-center">Creación de reserva</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-4 align-items-center border rounded">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdCliente" class="control-label"></label>
-                <select asp-for="IdCliente" class ="form-control" asp-items="ViewBag.IdCliente"></select>
+                <label asp-for="IdCliente" class="control-label">Cliente</label>
+                <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdViaje" class="control-label"></label>
-                <select asp-for="IdViaje" class ="form-control" asp-items="ViewBag.IdViaje"></select>
+                <label asp-for="IdViaje" class="control-label">Viaje</label>
+                <select asp-for="IdViaje" class="form-control" asp-items="ViewBag.IdViaje"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdMedioPago" class="control-label"></label>
-                <select asp-for="IdMedioPago" class ="form-control" asp-items="ViewBag.IdMedioPago"></select>
+                <label asp-for="IdMedioPago" class="control-label">Medio de pago</label>
+                <select asp-for="IdMedioPago" class="form-control" asp-items="ViewBag.IdMedioPago"></select>
             </div>
             <div class="form-group">
-                <label asp-for="FechaReserva" class="control-label"></label>
+                <label asp-for="FechaReserva" class="control-label">Fecha de reserva</label>
                 <input asp-for="FechaReserva" class="form-control" />
                 <span asp-validation-for="FechaReserva" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CostoTotal" class="control-label"></label>
+                <label asp-for="CostoTotal" class="control-label">Costo total</label>
                 <input asp-for="CostoTotal" class="form-control" />
                 <span asp-validation-for="CostoTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class=" d-flex align-items-center justify-content-center">
+    <a asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {
