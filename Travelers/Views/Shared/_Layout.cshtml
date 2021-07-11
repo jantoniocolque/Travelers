@@ -40,9 +40,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Clientes</a>
                         </li>
                         <li>
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Buscar destino" aria-label="Buscar destino">
-                                <button class="btn btn-outline-dark" type="submit">Buscar</button>
+                            <form class="d-flex" asp-controller="Viaje" asp-action="Filter" method="post">
+                                <input id="paisBuscar" class="form-control me-2" type="search" placeholder="Buscar destino" aria-label="Buscar destino" name="nombrePais">
+                                <button id="buscar" class="btn btn-outline-dark" type="submit">Buscar</button>
                             </form>
                         </li>
                     </ul>
@@ -109,6 +109,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        const btnBuscar = document.querySelector("#buscar");
+        const inBuscar = document.querySelector("#paisBuscar");
+        btnBuscar.addEventListener("click", function (e) {
+            if (inBuscar.value == "") {
+                e.preventDefault();
+            }
+        })
+    </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

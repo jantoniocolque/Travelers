@@ -1,4 +1,5 @@
-﻿@model Travelers.Models.Destino
+﻿
+@model Travelers.Clases.DestinoCLS
 
 @{
     ViewData["Title"] = "Create";
@@ -12,23 +13,27 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if(Model!= null && Model.mensajeError != "")
+            {
+                <p class="text-danger">@Model.mensajeError</p>
+            }
             <div class="form-group">
-                <label asp-for="NombrePais" class="control-label"></label>
-                <input asp-for="NombrePais" class="form-control" />
-                <span asp-validation-for="NombrePais" class="text-danger"></span>
+                <label asp-for="nombrePais" class="control-label"></label>
+                <input asp-for="nombrePais" class="form-control" />
+                <span asp-validation-for="nombrePais" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NombreProvincia" class="control-label"></label>
-                <input asp-for="NombreProvincia" class="form-control" />
-                <span asp-validation-for="NombreProvincia" class="text-danger"></span>
+                <label asp-for="nombreProvincia" class="control-label"></label>
+                <input asp-for="nombreProvincia" class="form-control" />
+                <span asp-validation-for="nombreProvincia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                <label asp-for="descripcion" class="control-label"></label>
+                <input asp-for="descripcion" class="form-control" />
+                <span asp-validation-for="descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>

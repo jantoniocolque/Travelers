@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +17,7 @@ namespace Travelers.Controllers
     public class ReservaController : Controller
     {
         private readonly TRAVELERSContext _context;
+        private static List<Reserva> lista = new List<Reserva>();
 
         public ReservaController(TRAVELERSContext context)
         {
@@ -22,9 +28,10 @@ namespace Travelers.Controllers
         public async Task<IActionResult> Index()
         {
             var tRAVELERSContext = _context.Reservas.Include(r => r.IdClienteNavigation).Include(r => r.IdMedioPagoNavigation).Include(r => r.IdViajeNavigation);
+            lista = await tRAVELERSContext.ToListAsync();
             return View(await tRAVELERSContext.ToListAsync());
         }
-
+       
         // GET: Reserva/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -166,6 +173,50 @@ namespace Travelers.Controllers
         private bool ReservaExists(int id)
         {
             return _context.Reservas.Any(e => e.IdReserva == id);
+        }
+
+        public FileResult exportar(string[] nombrePropiedades)
+        {
+            byte[] buffer = exportarPDFDatos(nombrePropiedades, lista);
+            return File(buffer, "application/pdf");
+        }
+        public byte[] exportarPDFDatos<T>(string[] nombrePropiedades, List<T> lista)
+        {
+            Dictionary<string, string> diccionario = TypeDescriptor.GetProperties(typeof(T)).Cast<PropertyDescriptor>().ToDictionary(p => p.Name, p => p.DisplayName);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                PdfWriter writer = new PdfWriter(ms);
+                using (var pdfDoc = new PdfDocument(writer))
+                {
+                    Document doc = new Document(pdfDoc);
+                    Paragraph c1 = new Paragraph("Reporte en PDF");
+                    c1.SetFontSize(20);
+                    c1.SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER);
+                    doc.Add(c1);
+                    Table table = new Table(nombrePropiedades.Length);
+                    Cell celda;
+                    for (int i = 0; i < nombrePropiedades.Length; i++)
+                    {
+                        celda = new Cell();
+                        celda.Add(new Paragraph(diccionario[nombrePropiedades[i]]));
+                        table.AddHeaderCell(celda);
+                    }
+                    foreach (object item in lista)
+                    {
+                        foreach (string propiedad in nombrePropiedades)
+                        {
+                            celda = new Cell();
+                            celda.Add(new Paragraph(item.GetType().GetProperty(propiedad).GetValue(item).ToString()));
+                            table.AddCell(celda);
+                        }
+                    }
+                    doc.Add(table);
+                    doc.Close();
+                    writer.Close();
+
+                }
+                return ms.ToArray();
+            }
         }
     }
 }

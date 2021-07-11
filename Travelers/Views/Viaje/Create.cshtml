@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Viaje</h4>
+<h2>Nuevo viaje</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,8 +26,11 @@
                 <span asp-validation-for="Aerolinas" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <input id="agregarDestino" type="button" value="Crear destino" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
                 <label asp-for="IdDestino" class="control-label"></label>
-                <select asp-for="IdDestino" class ="form-control" asp-items="ViewBag.IdDestino"></select>
+                <select asp-for="IdDestino" class="form-control" asp-items="ViewBag.IdDestino"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

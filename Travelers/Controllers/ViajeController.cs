@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Travelers.Clases;
 using Travelers.Models;
 
 namespace Travelers.Controllers
@@ -21,8 +23,57 @@ namespace Travelers.Controllers
         // GET: Viaje
         public async Task<IActionResult> Index()
         {
-            var tRAVELERSContext = _context.Viajes.Include(v => v.IdDestinoNavigation);
-            return View(await tRAVELERSContext.ToListAsync());
+            List<ViajeCLS> listaViajes = new List<ViajeCLS>();
+            listaViajes = (from viaje in _context.Viajes
+                           join destino in _context.Destinos
+                           on viaje.IdDestino equals destino.IdDestino
+                           select new ViajeCLS
+                           {
+                               idViaje = viaje.IdViaje,
+                               capacidadMax = viaje.CapacidadMax,
+                               precio = viaje.Precio,
+                               aerolinas = viaje.Aerolinas,
+                               nombrePais = destino.NombrePais,
+                               nombreProvincia = destino.NombreProvincia,
+                               descripcion = destino.Descripcion,
+                           }).ToList();
+            //.Include(v => v.IdDestinoNavigation);
+            ViewBag.listaDestinos = listaDestinos();
+            return View(listaViajes);
+        }
+        public List<SelectListItem> listaDestinos()
+        {
+            List<SelectListItem> listaDestinos = new List<SelectListItem>();
+            listaDestinos = (from destino in _context.Destinos
+                             group destino by new { destino.NombrePais } into g
+                             select new SelectListItem
+                             {
+                                 Text = g.Key.NombrePais,
+                                 Value = g.Key.NombrePais,
+                             }).ToList();
+            listaDestinos.Insert(0, new SelectListItem { Text = "--Seleccionar--", Value = "" });
+            return  listaDestinos;
+        }
+        public IActionResult Filter(ViajeCLS viajeBuscado) {
+            List<ViajeCLS> viajesPorNombre = new List<ViajeCLS>();
+            if (viajeBuscado.nombrePais != null || viajeBuscado.nombrePais!="") {
+                viajesPorNombre = (from viaje in _context.Viajes
+                                   join destino in _context.Destinos
+                                   on viaje.IdDestino equals destino.IdDestino
+                                   where destino.NombrePais.Contains(viajeBuscado.nombrePais)
+                                   select new ViajeCLS
+                                   {
+                                       idViaje = viaje.IdViaje,
+                                       capacidadMax = viaje.CapacidadMax,
+                                       precio = viaje.Precio,
+                                       aerolinas = viaje.Aerolinas,
+                                       nombrePais = destino.NombrePais,
+                                       nombreProvincia = destino.NombreProvincia,
+                                       descripcion = destino.Descripcion,
+                                   }).ToList();
+            }
+            ViewBag.listaDestinos = listaDestinos();
+            return View("Index",viajesPorNombre);
         }
 
         // GET: Viaje/Details/5
@@ -47,7 +98,7 @@ namespace Travelers.Controllers
         // GET: Viaje/Create
         public IActionResult Create()
         {
-            ViewData["IdDestino"] = new SelectList(_context.Destinos, "IdDestino", "Descripcion");
+            ViewData["IdDestino"] = new SelectList(_context.Destinos, "IdDestino", "NombrePais");
             return View();
         }
 
@@ -64,8 +115,9 @@ namespace Travelers.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdDestino"] = new SelectList(_context.Destinos, "IdDestino", "Descripcion", viaje.IdDestino);
+            ViewData["IdDestino"] = new SelectList(_context.Destinos, "IdDestino", "NombrePais", viaje.IdDestino);
             return View(viaje);
+
         }
 
         // GET: Viaje/Edit/5

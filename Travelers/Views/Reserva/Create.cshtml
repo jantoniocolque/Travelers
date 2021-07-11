@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CostoTotal" class="control-label">Costo total</label>
-                <input asp-for="CostoTotal" class="form-control" />
+                <input asp-for="CostoTotal" class="form-control"/>
                 <span asp-validation-for="CostoTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -42,7 +42,28 @@
 <div class=" d-flex align-items-center justify-content-center">
     <a asp-action="Index">Volver a la lista</a>
 </div>
-
+<script>
+    const nuevoDestino = document.querySelector("#agregarDestino");
+    nuevoDestino.addEventListener("click", function () {
+        Swal.fire({
+            title: 'Desea guardar los cambios?',
+            text: "Desea realizar los cambios en la base de datos?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                @*Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )*@
+            }
+        })
+    })
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

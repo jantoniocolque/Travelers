@@ -1,53 +1,77 @@
-﻿@model IEnumerable<Travelers.Models.Viaje>
+﻿@using Travelers.Clases
+@model IEnumerable<ViajeCLS>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Viajes";
+    List<SelectListItem> listaDestinos = ViewBag.listaDestinos;
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear viaje</a>
 </p>
+<form id="formEnviar" asp-controller="Viaje" asp-action="Filter" method="post">
+    <label>Destino</label>
+    @Html.DropDownList("nombrePais",listaDestinos,new { @class = "form form-control" })
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CapacidadMax)
+                @Html.DisplayNameFor(model => model.capacidadMax)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                @Html.DisplayNameFor(model => model.precio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Aerolinas)
+                @Html.DisplayNameFor(model => model.aerolinas)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdDestinoNavigation)
+                @Html.DisplayNameFor(model => model.nombrePais)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombreProvincia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcion)
+            </th>
+        </tr>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CapacidadMax)
+                @Html.DisplayFor(modelItem => item.capacidadMax)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Precio)
+                @Html.DisplayFor(modelItem => item.precio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Aerolinas)
+                @Html.DisplayFor(modelItem => item.aerolinas)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdDestinoNavigation.Descripcion)
+                @Html.DisplayFor(modelItem => item.nombrePais)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdViaje">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdViaje">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdViaje">Delete</a>
+                @Html.DisplayFor(modelItem => item.nombreProvincia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.idViaje">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.idViaje">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.idViaje">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<script>
+    const seleccionPais = document.querySelector("select#nombrePais");
+    const formEnviar = document.querySelector("form#formEnviar");
+    seleccionPais.options[0].disabled = true;
+    seleccionPais.addEventListener("change", function () {
+        formEnviar.submit();
+    });
+</script>
