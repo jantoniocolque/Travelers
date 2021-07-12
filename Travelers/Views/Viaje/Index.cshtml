@@ -9,6 +9,11 @@
 <p>
     <a asp-action="Create">Crear viaje</a>
 </p>
+
+
+<input class="btn-success rounded" type="submit" name="Reservar" value="Reservar viaje" onclick="location.href = '@Url.Action("Create", "Reserva")'"/>
+
+
 <form id="formEnviar" asp-controller="Viaje" asp-action="Filter" method="post">
     <label>Destino</label>
     @Html.DropDownList("nombrePais",listaDestinos,new { @class = "form form-control" })
