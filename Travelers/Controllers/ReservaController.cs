@@ -54,11 +54,14 @@ namespace Travelers.Controllers
         }
 
         // GET: Reserva/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             ViewData["IdCliente"] = new SelectList(_context.Clientes, "IdCliente", "Apellido");
             ViewData["IdMedioPago"] = new SelectList(_context.MedioPagos, "IdMedioPago", "Tipo");
-            ViewData["IdViaje"] = new SelectList(_context.Viajes, "IdViaje", "Aerolinas");
+            var miViaje = _context.Viajes.Where(v => v.IdViaje == id).First();
+            var miDestino = _context.Destinos.Where(d => d.IdDestino == miViaje.IdDestino).First();
+            ViewBag.miViaje = miViaje;
+            ViewBag.miDestino = miDestino;
             return View();
         }
 

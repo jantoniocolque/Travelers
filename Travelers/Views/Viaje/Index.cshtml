@@ -10,10 +10,6 @@
     <a asp-action="Create">Crear viaje</a>
 </p>
 
-
-<input class="btn-success rounded" type="submit" name="Reservar" value="Reservar viaje" onclick="location.href = '@Url.Action("Create", "Reserva")'"/>
-
-
 <form id="formEnviar" asp-controller="Viaje" asp-action="Filter" method="post">
     <label>Destino</label>
     @Html.DropDownList("nombrePais",listaDestinos,new { @class = "form form-control" })
@@ -24,19 +20,23 @@
             @foreach (var item in Model)
             {
                 string imgProvincia = item.nombreProvincia + ".jpg";
-                <div class="card-store col-6 col-sm-4 col-lg-3">
-                    <section class="product-box">
-                        <figure class="product-box_image m-0">
-                            <img src='/img/@item.nombrePais/@imgProvincia' +".jpg" alt="imagen de destino">
-                        </figure>
-                        <article class="product-box_data justify-content-md-between">
-                            <h4>@item.nombrePais - @item.nombreProvincia</h4>
-                            <span><br>$AR<b>@item.precio</b></span>
-                            <p>Aerolinas: @item.aerolinas</p>
-                            <p>@item.descripcion</p>
-                        </article>
-                    </section>
-                </div>
+
+            <div class="card-store col-6 col-sm-4 col-lg-3">
+                
+                <section class="product-box">
+                    <figure class="product-box_image m-0">
+                        <img src='/img/@item.nombrePais/@imgProvincia' +".jpg" alt="imagen de destino">
+                    </figure>
+                    <article class="product-box_data justify-content-md-between pb-4">
+                        <h4>@item.nombrePais - @item.nombreProvincia</h4>
+                        <span><br>$AR<b>@item.precio</b></span>
+                        <p>Aerolinas: @item.aerolinas</p>
+                        <p>@item.descripcion</p>
+                    </article>
+                    @Html.ActionLink("Crear reserva", "Create", "Reserva", new { id = item.idViaje }, new { @class = "btn-success text-center" })
+                </section>
+            </div>
+                
             }
         </div>
     </div>

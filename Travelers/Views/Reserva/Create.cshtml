@@ -1,7 +1,10 @@
-﻿@model Travelers.Models.Reserva
+﻿
+@model Travelers.Models.Reserva
 
 @{
     ViewData["Title"] = "Create";
+    Viaje miViajeReserva = ViewBag.miViaje;
+    Destino miDestinoReserva = ViewBag.miDestino;
 }
 
 <h1 class="d-flex align-items-center justify-content-center">Creación de reserva</h1>
@@ -15,8 +18,13 @@
                 <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdViaje" class="control-label">Viaje</label>
-                <select asp-for="IdViaje" class="form-control" asp-items="ViewBag.IdViaje"></select>
+                <label class="control-label">Nombre de pais</label>
+                <input disabled value="@miDestinoReserva.NombrePais" />
+                <input hidden value="@miDestinoReserva.IdDestino" name="IdDestino" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nombre de provincia</label>
+                <input disabled value="@miDestinoReserva.NombreProvincia" />
             </div>
             <div class="form-group">
                 <label asp-for="IdMedioPago" class="control-label">Medio de pago</label>
@@ -29,9 +37,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="CostoTotal" class="control-label">Costo total</label>
-                <input asp-for="CostoTotal" class="form-control"/>
+                <input disabled asp-for="CostoTotal" value="@miViajeReserva.Precio" class="form-control" />
+                <input hidden value="@miViajeReserva.Precio" name="CostoTotal" class="form-control" />
                 <span asp-validation-for="CostoTotal" class="text-danger"></span>
             </div>
+            <input hidden value="@miViajeReserva.IdViaje" name="IdViaje" />
             <div class="form-group">
                 <input type="submit" value="Crear" class="btn btn-primary" />
             </div>

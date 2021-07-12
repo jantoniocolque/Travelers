@@ -1,15 +1,14 @@
-﻿@model IEnumerable<Travelers.Models.Reserva>
+﻿@using Travelers.Clases;
+@model IEnumerable<Travelers.Models.Reserva>
 
 @{
     ViewData["Title"] = "Index";
+    
 }
 
 <h1>Reservas</h1>
 
-<p>
-    <a asp-action="Create">Crear nueva</a>
-</p>
-<input type="button" value="Exportar PDF" class="btn btn-primary" onclick="exportar()"/>
+<input hidden type="button" value="Exportar PDF" class="btn btn-primary" onclick="exportar()"/>
 <form asp-controller="Reserva" asp-action="exportar" id="frmReporte">
     <table class="table">
         <thead>
