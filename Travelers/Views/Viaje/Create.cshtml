@@ -1,7 +1,9 @@
-﻿@model Travelers.Models.Viaje
+﻿@model Travelers.Clases.ViajeCLS
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Agregar";
+    List<SelectListItem> listaDestinos = ViewBag.listaDestinos;
+    List<SelectListItem> listaProvincias = ViewBag.listaProvincias;
 }
 
 <h2>Nuevo viaje</h2>
@@ -10,39 +12,112 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @if (Model != null && Model.mensajeError != "")
+            {
+                <p class="text-danger">@Model.mensajeError</p>
+            }
             <div class="form-group">
-                <label asp-for="CapacidadMax" class="control-label"></label>
-                <input asp-for="CapacidadMax" class="form-control" />
-                <span asp-validation-for="CapacidadMax" class="text-danger"></span>
+                <label asp-for="capacidadMax" class="control-label"></label>
+                <input asp-for="capacidadMax" class="form-control" />
+                <span asp-validation-for="capacidadMax" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+                <label asp-for="precio" class="control-label"></label>
+                <input asp-for="precio" class="form-control" />
+                <span asp-validation-for="precio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Aerolinas" class="control-label"></label>
-                <input asp-for="Aerolinas" class="form-control" />
-                <span asp-validation-for="Aerolinas" class="text-danger"></span>
+                <label asp-for="aerolinas" class="control-label"></label>
+                <input asp-for="aerolinas" class="form-control" />
+                <span asp-validation-for="aerolinas" class="text-danger"></span>
             </div>
+
+            @Html.DropDownList("nombrePais", listaDestinos, new { @class = "form form-control mt-4" })
+            @Html.DropDownList("nombreProvincia", listaProvincias, new { @class = "form form-control my-4" })
+            <input hidden id="nombreProvincia" value="" name="nombreProvincia" />
+            <input hidden id="descripcion" value="" name="descripcion" />
             <div class="form-group">
-                <input id="agregarDestino" type="button" value="Crear destino" class="btn btn-primary" />
-            </div>
-            <div class="form-group">
-                <label asp-for="IdDestino" class="control-label"></label>
-                <select asp-for="IdDestino" class="form-control" asp-items="ViewBag.IdDestino"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Agregar" class="btn btn-primary" />
+                <input id="agregarDestino" type="button" data-togle="modal" data-target="#modalcategory" value="Nuevo destino" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+<script>
+    var listaDestinosPorPais = document.querySelector('#nombrePais');
+    var listaProvincias = document.querySelector('#nombreProvincia');
+    listaDestinosPorPais.addEventListener("change", function () {
+        for (let i = 1; i <= listaProvincias.length - 1; i++) {
+            if (listaProvincias[i].value != listaDestinosPorPais.value) {
+                listaProvincias[i].style.display = "none";
+            } else {
+                listaProvincias[i].style.display = "block";
+                listaProvincias[i].value = listaProvincias[i].text;
+            }
+        }
+    });
+</script>
+<script>
+    window.addEventListener('load', function () {
+        var nuevoDestino = document.querySelector("#agregarDestino");
+        nuevoDestino.addEventListener('click', async function () {
+            var { value: formValues} = await Swal.fire({
+                title: 'Agregar nuevo destino',
+                html:
+                    `
+                    <div class="form-group">
+                        <label for= "nombrePais" class= "control-label">Nombre pais</label>
+                        <input id="miPais" class="form-control" />
+                    </div >
+                    <div class="form-group">
+                        <label for="nombreProvincia" class="control-label">Nombre provincia</label>
+                        <input id="miProvincia" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion" class="control-label">Descripcion</label>
+                        <input id="miDescripcion" class="form-control" />
+                    </div>
+                    `,
+                showCloseButton: true,
+                preConfirm: () => {
+                    return [
+                        document.getElementById("miPais").value,
+                        document.getElementById("miProvincia").value,
+                        document.getElementById("miDescripcion").value
+                    ]
+                },
+                confirmButtonText: 'Agregar',
+            });
+            if (formValues) {
+                var listaDestinosPorPais = document.querySelector('#nombrePais');
+                var listaProvincias = document.querySelector('#nombreProvincia');
+                var pais = formValues[0];
+                var provincia = formValues[1];
+                var descripcion = formValues[2];
+                if (pais != undefined) {
+                    var option = document.createElement("option");
+                    option.text = pais;
+                    option.value = pais;
+                    option.selected = 'selected';
+                    
+                    listaDestinosPorPais.appendChild(option);
+                    var inProvincia = document.querySelector("#nombreProvincia");
+                    inProvincia.value = provincia;
+                    var inDescripcion = document.querySelector("#descripcion");
+                    inDescripcion.value = descripcion;
+                }
+                if (provincia != undefined) {
+                    var option = document.createElement("option");
+                    option.text = provincia;
+                    option.value = provincia;
+                    option.selected = 'selected';
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+                    listaProvincias.appendChild(option);
+                }
+            }
+        });
+    });
+</script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -21,5 +21,6 @@ namespace Travelers.Clases
         public string nombreProvincia { get; set; }
         [Display(Name = "Descripcion")]
         public string descripcion { get; set; }
+        public string mensajeError { get; set; }
     }
 }

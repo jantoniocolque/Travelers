@@ -51,8 +51,21 @@ namespace Travelers.Controllers
                                  Text = g.Key.NombrePais,
                                  Value = g.Key.NombrePais,
                              }).ToList();
-            listaDestinos.Insert(0, new SelectListItem { Text = "--Seleccionar--", Value = "" });
+            listaDestinos.Insert(0, new SelectListItem { Text = "--Seleccionar pais--", Value = "" });
             return  listaDestinos;
+        }
+        public List<SelectListItem> listaProvincias()
+        {
+            List<SelectListItem> listaProvincias = new List<SelectListItem>();
+            listaProvincias = (from destino in _context.Destinos
+                             group destino by new { destino.NombreProvincia,destino.NombrePais } into g
+                             select new SelectListItem
+                             {
+                                 Text = g.Key.NombreProvincia,
+                                 Value = g.Key.NombrePais,
+                             }).ToList();
+            listaProvincias.Insert(0, new SelectListItem { Text = "--Seleccionar provincia--", Value = "" });
+            return listaProvincias;
         }
         public IActionResult Filter(ViajeCLS viajeBuscado) {
             List<ViajeCLS> viajesPorNombre = new List<ViajeCLS>();
@@ -98,7 +111,8 @@ namespace Travelers.Controllers
         // GET: Viaje/Create
         public IActionResult Create()
         {
-            ViewData["IdDestino"] = new SelectList(_context.Destinos, "IdDestino", "NombrePais");
+            ViewBag.listaProvincias = listaProvincias();
+            ViewBag.listaDestinos = listaDestinos();
             return View();
         }
 
@@ -107,17 +121,49 @@ namespace Travelers.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdViaje,CapacidadMax,Precio,Aerolinas,IdDestino")] Viaje viaje)
+        public async Task<IActionResult> Create(ViajeCLS viaje)
         {
-            if (ModelState.IsValid)
+            int cantVeces = 0;
+            cantVeces = _context.Destinos.Where(d =>
+            d.NombrePais.ToUpper().Trim() == viaje.nombrePais.ToUpper().Trim()).Where(d =>
+            d.NombreProvincia.ToUpper().Trim() == viaje.nombreProvincia.ToUpper().Trim()).Count();
+
+            if (!ModelState.IsValid || cantVeces >= 1)
             {
-                _context.Add(viaje);
+                if (cantVeces >= 1)
+                {
+                    viaje.mensajeError = "El destino ya existe";
+                }
+                ViewBag.listaProvincias = listaProvincias();
+                ViewBag.listaDestinos = listaDestinos();
+                return View(viaje);
+            }
+            else
+            {
+                if(viaje.descripcion != null)
+                {
+                    Destino miDestino = new Destino();
+                    miDestino.NombrePais = viaje.nombrePais;
+                    miDestino.NombreProvincia = viaje.nombreProvincia;
+                    miDestino.Descripcion = viaje.descripcion;
+                    _context.Destinos.Add(miDestino);
+                    _context.SaveChanges();
+                }
+                
+
+                var nuevoDestino = _context.Destinos.Where(d =>
+                                    d.NombrePais.ToUpper().Trim() == viaje.nombrePais.ToUpper().Trim()).Where(d =>
+                                    d.NombreProvincia.ToUpper().Trim() == viaje.nombreProvincia.ToUpper().Trim()).First();
+
+                Viaje miViaje = new Viaje();
+                miViaje.CapacidadMax = viaje.capacidadMax;
+                miViaje.Precio = viaje.precio;
+                miViaje.Aerolinas = viaje.aerolinas;
+                miViaje.IdDestino = nuevoDestino.IdDestino;
+                _context.Add(miViaje);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdDestino"] = new SelectList(_context.Destinos, "IdDestino", "NombrePais", viaje.IdDestino);
-            return View(viaje);
-
         }
 
         // GET: Viaje/Edit/5

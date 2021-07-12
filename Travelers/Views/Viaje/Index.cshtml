@@ -13,7 +13,30 @@
     <label>Destino</label>
     @Html.DropDownList("nombrePais",listaDestinos,new { @class = "form form-control" })
 </form>
-<table class="table">
+<div class="page-content d-lg-flex">
+    <div class="container-photos col-12 col-lg-12">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                string imgProvincia = item.nombreProvincia + ".jpg";
+                <div class="card-store col-6 col-sm-4 col-lg-3">
+                    <section class="product-box">
+                        <figure class="product-box_image m-0">
+                            <img src='/img/@item.nombrePais/@imgProvincia' +".jpg" alt="imagen de destino">
+                        </figure>
+                        <article class="product-box_data justify-content-md-between">
+                            <h4>@item.nombrePais - @item.nombreProvincia</h4>
+                            <span><br>$AR<b>@item.precio</b></span>
+                            <p>Aerolinas: @item.aerolinas</p>
+                            <p>@item.descripcion</p>
+                        </article>
+                    </section>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -66,7 +89,7 @@
         </tr>
 }
     </tbody>
-</table>
+</table>*@
 <script>
     const seleccionPais = document.querySelector("select#nombrePais");
     const formEnviar = document.querySelector("form#formEnviar");
