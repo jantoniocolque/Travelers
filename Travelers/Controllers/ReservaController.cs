@@ -201,15 +201,12 @@ namespace Travelers.Controllers
                         celda.Add(new Paragraph(diccionario[nombrePropiedades[i]]));
                         table.AddHeaderCell(celda);
                     }
-                    foreach (object item in lista)
-                    {
                         foreach (string propiedad in nombrePropiedades)
                         {
                             celda = new Cell();
-                            celda.Add(new Paragraph(item.GetType().GetProperty(propiedad).GetValue(item).ToString()));
+                            celda.Add(new Paragraph(lista[0].GetType().GetProperty(propiedad).GetValue(lista[0]).ToString()));
                             table.AddCell(celda);
                         }
-                    }
                     doc.Add(table);
                     doc.Close();
                     writer.Close();
